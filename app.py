@@ -10,7 +10,6 @@ def create_app(test_config=None):
 
   @app.route('/')
   def get_greeting():
-      
       greeting = "Hello"
       return greeting
 
