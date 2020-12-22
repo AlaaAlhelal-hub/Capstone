@@ -7,7 +7,7 @@ from urllib.request import urlopen
 # AUTH0 Configuration
 AUTH0_DOMAIN = 'alaa-fsnd.us.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'CoffeeShop'
+API_AUDIENCE = 'CastingAgencyModels'
 
 
 ## AuthError Exception
