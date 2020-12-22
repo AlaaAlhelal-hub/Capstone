@@ -17,52 +17,87 @@ def create_app(test_config=None):
     response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE')
     return response
 
-'''
-GET /actors and /movies
-DELETE /actors/ and /movies/
-POST /actors and /movies and
-PATCH /actors/ and /movies/
-'''
+
 # GET /actors and /movies
   @app.route('/actors')
-  def get_actors():
+  @requires_auth('get:actors')
+  def get_actors(payload):
       return jsonify({'success' : True})
 
   @app.route('/movies')
-  def get_movies():
+  @requires_auth('get:movies')
+  def get_movies(payload):
       return jsonify({'success' : True})
 
 
 # POST /actors and /movies and
-  @app.route('/actors/<int:actor_id>', methods=['POST'])
-  def new_actor(actor_id):
+  @app.route('/actors', methods=['POST'])
+  @requires_auth('post:actor')
+  def new_actor(payload):
       return jsonify({'success' : True})
 
-  @app.route('/movies/<int:movie_id>', methods=['POST'])
-  def new_movie(movie_id):
+  @app.route('/movies', methods=['POST'])
+  @requires_auth('post:movie')
+  def new_movie(payload):
       return jsonify({'success' : True})
 
 
 # PATCH /actors/ and /movies/
   @app.route('/actors/<int:actor_id>', methods=['PATCH'])
-  def update_actor(actor_id):
+  @requires_auth('patch:actor')
+  def update_actor(payload, actor_id):
       return jsonify({'success' : True})
 
   @app.route('/movies/<int:movie_id>', methods=['PATCH'])
-  def update_movie(movie_id):
+  @requires_auth('patch:movie')
+  def update_movie(payload, movie_id):
       return jsonify({'success' : True})
 
 
 # DELETE /actors/ and /movies/
   @app.route('/actors/<int:actor_id>', methods=['DELETE'])
-  def delete_actor(actor_id):
+  @requires_auth('delete:actor')
+  def delete_actor(payload, actor_id):
       return jsonify({'success' : True})
 
   @app.route('/movies/<int:movie_id>', methods=['DELETE'])
-  def delete_movie(movie_id):
+  @requires_auth('delete:movie')
+  def delete_movie(payload, movie_id):
       return jsonify({'success' : True})
 
 
+  # Error Handling
+  @app.errorhandler(422)
+  def unprocessable(error):
+      return jsonify({
+        "success": False,
+        "error": 422,
+        "message": "unprocessable"
+        }), 422
+
+  @app.errorhandler(404)
+  def notfound(error):
+      return jsonify({
+        "success": False,
+        "error": 404,
+        "message": "resource not found"
+        }), 404
+
+  @app.errorhandler(400)
+  def bad_request(error):
+      return jsonify({
+        'success': False,
+        'status': 400,
+        'message': 'bad request'
+        }), 400
+
+  @app.errorhandler(AuthError)
+  def auth_error(error):
+      return jsonify({
+        'success': False,
+        'status': error.status_code,
+        'message': error.error['description']
+        }), error.status_code
 
   return app
 
