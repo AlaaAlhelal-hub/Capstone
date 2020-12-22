@@ -3,6 +3,8 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Movie, Actor
+from .auth.auth import AuthError, requires_auth
+
 
 
 def create_app(test_config=None):
@@ -18,28 +20,77 @@ def create_app(test_config=None):
     return response
 
 
-# GET /actors and /movies
+# GET /actors
   @app.route('/actors')
   @requires_auth('get:actors')
   def get_actors(payload):
-      return jsonify({'success' : True})
+      try:
+          all_actors= Actor.query.order_by(Actor.id).all()
+          all_actors_formatted = [actor.format() for actor in all_actors]
+          return jsonify({
+          'success' : True,
+          'actors' : all_actors_formatted
+          })
+       except BaseException:
+           abort(422)
 
+# GET /movies
   @app.route('/movies')
   @requires_auth('get:movies')
   def get_movies(payload):
-      return jsonify({'success' : True})
+      try:
+          all_movies= Movie.query.order_by(Movie.id).all()
+          all_movies_formatted = [movie.format() for movie in all_movies]
+          return jsonify({
+          'success' : True,
+          'movies' : all_movies_formatted
+          })
+      except BaseException:
+          abort(422)
 
 
-# POST /actors and /movies and
+# POST /actors
   @app.route('/actors', methods=['POST'])
   @requires_auth('post:actor')
   def new_actor(payload):
-      return jsonify({'success' : True})
+      body = request.get_json()
+      name = body.get('name', None)
+      age = body.get('age', None)
+      gender = body.get('gender', None)
 
+      if name is None or age is None or gender is None:
+          abort(400)
+
+      try:
+          new_actor = Actor(name=name, age=age, gender=gender)
+          new_actor.insert()
+          return jsonify({
+          'success' : True,
+          'created' : new_actor.format()
+          }),201
+       except BaseException:
+           abort(422)
+
+# POST /movies
   @app.route('/movies', methods=['POST'])
   @requires_auth('post:movie')
   def new_movie(payload):
-      return jsonify({'success' : True})
+      body = request.get_json()
+      title = body.get('title', None)
+      release_date = body.get('release_date', None)
+
+      if title is None or release_date is None:
+          abort(400)
+
+      try:
+          new_movie = Movie(title=title, release_date=release_date)
+          new_movie.insert()
+          return jsonify({
+          'success' : True,
+          'created' : new_movie.format()
+          }),201
+       except BaseException:
+           abort(422)
 
 
 # PATCH /actors/ and /movies/

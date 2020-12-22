@@ -49,6 +49,12 @@ class Movie(db.Model):
       db.session.delete(self)
       db.session.commit()
 
+    def format(self):
+        return {
+        'title':self.title,
+        'release date': self.release_date
+        }
+
 
 # Actors with attributes name, age and gender
 class Actor(db.Model):
@@ -77,3 +83,10 @@ class Actor(db.Model):
     def delete(self):
       db.session.delete(self)
       db.session.commit()
+
+    def format(self):
+        return {
+        'name':self.name,
+        'age': self.age,
+        'gender': self.gender
+        }
