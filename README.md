@@ -54,7 +54,7 @@ For review purposes, the JWT tokens in the test_app.py can be used for accessing
 
 ### Endpoints
 
-GET '/actors'
+GET '/actors' ___
 GET '/movies'
 POST '/actors'
 POST '/movies'
