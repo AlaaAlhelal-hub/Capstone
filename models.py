@@ -1,13 +1,13 @@
 import os
-from sqlalchemy import Column, String, Integer, create_engine
+from sqlalchemy import Column, String, Integer, create_engine, Table
 from flask_sqlalchemy import SQLAlchemy
 import json
+from datetime import datetime
 
-database_name = "CastingAgencyModels"
+database_name = "castingagencymodels"
 database_path =  "postgres://{}:{}@{}/{}".format('postgres', '1234','localhost:5432', database_name)
 
 db = SQLAlchemy()
-
 
 def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
@@ -17,22 +17,22 @@ def setup_db(app, database_path=database_path):
     db.create_all()
 
 
-
 # association tabe bidirectional Many-to-Many relationship
-association_table = Table('movie_actor', Base.metadata,
-    Column('movies', Integer, ForeignKey('movies.id')),
-    Column('actors', Integer, ForeignKey('actors.id')))
+association_table = Table('movie_actor', db.metadata,
+    Column('movies', Integer, db.ForeignKey('movies.id')),
+    Column('actors', Integer, db.ForeignKey('actors.id')))
 
 # Movies with attributes title and release date
 class Movie(db.Model):
-    __tabelname__="movies"
+    __tablename__="movies"
     id = Column(Integer, primary_key=True)
     title = Column(String)
-    release_date = Column(Date)
-    actors = relationship(
-    "actors",
+    release_date = Column(db.Date)
+
+    actors = db.relationship("Actor",
     secondary=association_table,
     back_populates="movies")
+
 
     def __init__(self, title, release_date):
       self.title = title
@@ -52,21 +52,23 @@ class Movie(db.Model):
     def format(self):
         return {
         'title':self.title,
-        'release date': self.release_date
+        'release date': self.release_date.strftime("%d-%m-%Y")
         }
 
 
 # Actors with attributes name, age and gender
 class Actor(db.Model):
-    __tabelname__="actors"
+    __tablename__="actors"
     id = Column(Integer, primary_key=True)
     name = Column(String)
     age = Column(Integer)
     gender = Column(String)
-    movies = relationship(
-        "movies",
+
+    movies = db.relationship(
+        "Movie",
         secondary=association_table,
         back_populates="actors")
+
 
     def __init__(self, name, age, gender):
       self.name = name
