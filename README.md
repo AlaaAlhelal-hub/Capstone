@@ -55,13 +55,13 @@ For review purposes, the JWT tokens in the test_app.py can be used for accessing
 ### Endpoints
 
 GET '/actors' \
-GET '/movies'
-POST '/actors'
-POST '/movies'
-PATCH '/actors/<id>'
-PATCH '/movies/<id>'
-DELETE '/movies/<id>'
-DELETE '/movies/<id>'
+GET '/movies' \
+POST '/actors' \
+POST '/movies' \
+PATCH '/actors/<id>' \
+PATCH '/movies/<id>' \
+DELETE '/movies/<id>' \
+DELETE '/movies/<id>' \
 
 
 
