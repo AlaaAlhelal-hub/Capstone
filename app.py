@@ -210,6 +210,14 @@ def create_app(test_config=None):
         "message": "unprocessable"
         }), 422
 
+  @app.errorhandler(405)
+  def method_not_allowed(error):
+      return jsonify({
+        'success': False,
+        'status': 405,
+        'message': 'Method not allowed'
+        }), 405
+
   @app.errorhandler(404)
   def notfound(error):
       return jsonify({
@@ -225,6 +233,7 @@ def create_app(test_config=None):
         'status': 400,
         'message': 'bad request'
         }), 400
+
 
   @app.errorhandler(AuthError)
   def auth_error(error):

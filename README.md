@@ -5,57 +5,55 @@ Casting Agency Models is an API designed to management system that is responsibl
 
 ## Getting Started
 
-To get started, clone the repo to your local machine by running:
+To get started you must clone the repository to your device by running this command:
+'''
+git clone https://github.com/AlaaAlhelal-hub/Capstone.git
+'''
 
-git clone https://github.com/ukhu/movie_cast.git
+### Installing Python 3.8 Dependencies
 
-Installing Dependencies
-Python 3.7
-
-Follow instructions to install the latest version of python for your platform in the python docs
-Virtual Enviornment
-
-We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual enviornment for your platform can be found in the python docs
-PIP Dependencies
-
-Once you have your virtual environment setup and running, install dependencies by running:
-
+1. install dependencies by running this command:
+'''
 pip install -r requirements.txt
+'''
 
-This will install all of the required packages we selected within the requirements.txt file.
-Setting up the app
+2. Make sure to editing the DATABASE_URL variable in the setup.sh file to database url of your database, after that run:
 
-From within the root directory of the project, first ensure you are working using your created virtual environment.
-
-Make sure you edit the DATABASE_URL variable in the setup.sh file to reflect the actual database url of your database, then run:
-
+'''
 source setup.sh
+'''
 
 This will setup the environment variables and run database migrations.
-Running the server
 
-After the setup is complete, run the app using the command below:
 
+3. To run the server use the command below:
+'''
 flask run
+'''
 
-Accessing the endpoints
+
+
+## Testing
+
+To run tests, first you need to edit the DATABASE_URL_TEST variable in the test_app.sh file to your test database url, then run:
+'''
+source test_app.sh
+'''
+This will setup the test environment variables and run the tests.
+
+
+
+
+## The Endpoints
 
 A third-party authentication service Auth0 is used to handle authentication needs in the application and Role-Based-Access-Control is implemented in the app, which means authentication headers which contain JWT tokens and the required permissions will be used to access the endpoints.
 
-For convenience, and for review purposes, the JWT tokens in the app.tests.py can be used for accessing the endpoints.
+For review purposes, the JWT tokens in the test_app.py can be used for accessing the endpoints. (NOTE: These tokens will expire in 24 hours.)
 
-NOTE: These tokens will expire in 24 hours.
+### API Reference
 
-Testing
+### Endpoints
 
-To run tests, first edit the DATABASE_URL_TEST variable in the test_app.sh file to reflect your test database url, then run:
-
-source test_app.sh
-
-This will setup the test environment variables and run the tests.
-API Reference
-
-Endpoints
 GET '/actors'
 GET '/movies'
 POST '/actors'
@@ -65,147 +63,144 @@ PATCH '/movies/<id>'
 DELETE '/movies/<id>'
 DELETE '/movies/<id>'
 
+
+
 GET '/actors'
-- Fetches the list of actors in the database
+- Returns the list of actors
 - Request Arguments: None
 - Response:
-
+'''
 {
-  "actors": [
-    {
-      "age": 24,
-      "gender": "male",
-      "id": 1,
-      "name": "Matt Ryan"
-    },
-    {
-      "age": 41,
-      "gender": "male",
-      "id": 2,
-      "name": "Jeremy Cluivert"
-    },
-    {
-      "age": 28,
-      "gender": "female",
-      "id": 3,
-      "name": "Amanda Rhymes"
-    }
-  ],
-  "message": "successfully returned all actors",
-  "success": true
+    "actors": [
+        {
+            "age": 48,
+            "gender": "Male",
+            "name": "The Rock"
+        },
+        {
+            "age": 51,
+            "gender": "Female",
+            "name": "Jennifer Aniston"
+        }
+    ],
+    "success": true
 }
+'''
 
 GET '/movies'
-- Fetches the list of movies in the database
+- Returns the list of movies
 - Request Arguments: None
 - Response:
+'''
 {
-  "message": "successfully returned all movies",
-  "movies": [
-    {
-      "id": 1,
-      "release_date": "Wed, 11 Nov 2020 00:00:00 GMT",
-      "title": "La La Land"
-    },
-    {
-      "id": 2,
-      "release_date": "Fri, 24 Jul 2020 00:00:00 GMT",
-      "title": "Once upon a time in Hollywood"
-    }
-  ],
-  "success": true
+    "movies": [
+        {
+            "release date": "18-07-2008",
+            "title": "THE DARK KNIGHT"
+        },
+        {
+            "release date": "22-11-1995",
+            "title": "Toy Story"
+        }
+    ],
+    "success": true
 }
+'''
 
 POST '/actors'
-- Add actors to the database
-- Request Body: {
-    "name": "Ellie Osborne",
-    "age": 32,
-    "gender": "female",
-  }
-- Response:
+- Add actor to the database
+- Request json format:
 {
-  "actor": {
-    "age": 32,
-    "gender": "female",
-    "id": 4,
-    "name": "Ellie Osborne"
-  },
-  "message": "successfully added actor",
-  "success": true
+        "name":"Johnny Depp",
+        "age" : 57,
+        "gender" : "Male"
 }
+- Response:
+'''
+{
+    "created": {
+        "age": 57,
+        "gender": "Male",
+        "name": "Johnny Depp"
+    },
+    "success": true
+}
+'''
 
 POST '/movies'
-- Add movies to the database
-- Request Body: {
-    "title": "Who Killed John Redford",
-    "release_date": "10-9-2020"
-  }
-- Response:
+- Add movie to the database
+- Request json format:
 {
-  "message": "successfully added movie",
-  "movie": {
-    "id": 3,
-    "release_date": "Fri, 09 Oct 2020 00:00:00 GMT",
-    "title": "Who Killed John Redford"
-  },
-  "success": true
+    "title":"Pirates of the Caribbean",
+    "release_date":"28-06-2003"
 }
+- Response:
+'''
+{
+    "created": {
+        "release date": "28-06-2003",
+        "title": "Pirates of the Caribbean"
+    },
+    "success": true
+}
+'''
 
 PATCH '/actors/<id>'
 - Update an actor in the database
-- Request Parameters: id
-- Request Body: {
-    "age": 31,
+- Request parameter: id
+- Request json format: {
+    "age": 59
   }
 - Response:
+'''
 {
-  "actor": {
-    "age": 31,
-    "gender": "female",
-    "id": 4,
-    "name": "Ellie Osborne"
-  },
-  "message": "successfully updated actor details",
-  "success": true
+    "success": true,
+    "updated": {
+        "age": 59,
+        "gender": "Male",
+        "name": "Johnny Depp"
+    }
 }
+'''
 
 PATCH '/movies/<id>'
 - Update a movie in the database
-- Request Parameters: id
-- Request Body: {
-    "title": "Who killed Peter Linjberg"
+- Request Parameter: id
+- Request json format: {
+    "title": "Pirates of the Caribbean: The Curse of the Black Pearl"
   }
 - Response:
+'''
 {
-  "message": "successfully updated movie details",
-  "movie": {
-    "id": 3,
-    "release_date": "Fri, 09 Oct 2020 00:00:00 GMT",
-    "title": "Who killed Peter Linjberg"
-  },
-  "success": true
+    "success": true,
+    "updated": {
+        "release date": "28-06-2003",
+        "title": "Pirates of the Caribbean: The Curse of the Black Pearl"
+    }
 }
+'''
 
 DELETE '/actors/<id>'
 - Deletes an actor with the specified id
-- Request Parameters: id
+- Request Parameter: id
 - Response:
+'''
 {
-  "deleted_id": 4,
-  "message": "successfully deleted actor",
-  "success": true
+    "deleted": 4,
+    "success": true
 }
+'''
 
 DELETE '/movies/<id>'
 - Deletes a movie with the specified id
-- Request Parameters: id
+- Request Parameter: id
 - Response:
+'''
 {
-  "deleted_id": 3,
-  "message": "successfully deleted movie",
-  "success": true
+    "deleted": 4,
+    "success": true
 }
+'''
 
 
 The server returns these types of errors
@@ -231,7 +226,7 @@ The server returns these types of errors
     "message": "Method not allowed"
   }
 
-422 - Unprocessable entity
+422 - Unprocessable
   {
     "success": false,
     "error": 422,
