@@ -3,9 +3,11 @@ from sqlalchemy import Column, String, Integer, create_engine, Table
 from flask_sqlalchemy import SQLAlchemy
 import json
 from datetime import datetime
-
+'''
 database_name = "castingagencymodels"
 database_path =  "postgres://{}:{}@{}/{}".format('postgres', '1234','localhost:5432', database_name)
+'''
+database_path = os.environ['DATABASE_URL_TEST'] if os.environ['ENV'] == 'test' else os.environ['DATABASE_URL']
 
 db = SQLAlchemy()
 
