@@ -6,39 +6,39 @@ Casting Agency Models is an API designed to management system that is responsibl
 ## Getting Started
 
 To get started you must clone the repository to your device by running this command:
-'''
+```
 git clone https://github.com/AlaaAlhelal-hub/Capstone.git
-'''
+```
 
 ### Installing Python 3.8 Dependencies
 
 1. install dependencies by running this command:
-'''
+```
 pip install -r requirements.txt
-'''
+```
 
 2. Make sure to editing the DATABASE_URL variable in the setup.sh file to database url of your database, after that run:
 
-'''
+```
 source setup.sh
-'''
+```
 
 This will setup the environment variables and run database migrations.
 
 
 3. To run the server use the command below:
-'''
+```
 flask run
-'''
+```
 
 
 
 ## Testing
 
 To run tests, first you need to edit the DATABASE_URL_TEST variable in the test_app.sh file to your test database url, then run:
-'''
+```
 source test_app.sh
-'''
+```
 This will setup the test environment variables and run the tests.
 
 
@@ -69,7 +69,7 @@ GET '/actors'
 - Returns the list of actors
 - Request Arguments: None
 - Response:
-'''
+```
 {
     "actors": [
         {
@@ -85,13 +85,13 @@ GET '/actors'
     ],
     "success": true
 }
-'''
+```
 
 GET '/movies'
 - Returns the list of movies
 - Request Arguments: None
 - Response:
-'''
+```
 {
     "movies": [
         {
@@ -105,7 +105,7 @@ GET '/movies'
     ],
     "success": true
 }
-'''
+```
 
 POST '/actors'
 - Add actor to the database
@@ -116,7 +116,7 @@ POST '/actors'
         "gender" : "Male"
 }
 - Response:
-'''
+```
 {
     "created": {
         "age": 57,
@@ -125,7 +125,7 @@ POST '/actors'
     },
     "success": true
 }
-'''
+```
 
 POST '/movies'
 - Add movie to the database
@@ -135,7 +135,7 @@ POST '/movies'
     "release_date":"28-06-2003"
 }
 - Response:
-'''
+```
 {
     "created": {
         "release date": "28-06-2003",
@@ -143,7 +143,7 @@ POST '/movies'
     },
     "success": true
 }
-'''
+```
 
 PATCH '/actors/<id>'
 - Update an actor in the database
@@ -152,7 +152,7 @@ PATCH '/actors/<id>'
     "age": 59
   }
 - Response:
-'''
+```
 {
     "success": true,
     "updated": {
@@ -161,7 +161,7 @@ PATCH '/actors/<id>'
         "name": "Johnny Depp"
     }
 }
-'''
+```
 
 PATCH '/movies/<id>'
 - Update a movie in the database
@@ -170,7 +170,7 @@ PATCH '/movies/<id>'
     "title": "Pirates of the Caribbean: The Curse of the Black Pearl"
   }
 - Response:
-'''
+```
 {
     "success": true,
     "updated": {
@@ -178,29 +178,29 @@ PATCH '/movies/<id>'
         "title": "Pirates of the Caribbean: The Curse of the Black Pearl"
     }
 }
-'''
+```
 
 DELETE '/actors/<id>'
 - Deletes an actor with the specified id
 - Request Parameter: id
 - Response:
-'''
+```
 {
     "deleted": 4,
     "success": true
 }
-'''
+```
 
 DELETE '/movies/<id>'
 - Deletes a movie with the specified id
 - Request Parameter: id
 - Response:
-'''
+```
 {
     "deleted": 4,
     "success": true
 }
-'''
+```
 
 
 The server returns these types of errors
