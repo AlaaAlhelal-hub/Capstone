@@ -1,5 +1,5 @@
 
-export ENV='production'
+export ENV='Deploy'
 
 export FLASK_APP='app'
 
