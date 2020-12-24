@@ -1,5 +1,8 @@
 #  Casting Agency Models API
 
+## Introduction
+This is the capstone project for Udacity's FULL-STACK DEVELOPER NANODEGRE I've use all of the concepts and the skills that I gained from Nanodegree's courses.
+
 Casting Agency Models is an API designed to management system that is responsible for creating movies and managing and assigning actors to those movies. The API shows list of actors and movies and providing features for managing them.
 
 the app link
@@ -13,31 +16,32 @@ To get started you must clone the repository to your device by running this comm
 git clone https://github.com/AlaaAlhelal-hub/Capstone.git
 ```
 
-### Installing Python 3.8 Dependencies
+### Installing Dependencies
 
-1. install dependencies by running this command:
+1. To install Python 3.8 follow the instructions here (https://docs.python.org/3/)
+
+2. install dependencies by running this command:
 ```
 pip install -r requirements.txt
 ```
 
-2. Make sure to editing the DATABASE_URL variable in the setup.sh file to database url of your database, after that run:
-
+3. Make sure to editing the DATABASE_URL variable in the setup.sh file to database url of your database, after that run:
 ```
 source setup.sh
 ```
-
 This will setup the environment variables and run database migrations.
 
 
-3. To run the server use the command below:
+4. To run the server use the command below:
 ```
 flask run
 ```
 
 
 
-## Testing
+## API ARCHITECTURE AND TESTING
 
+### Testing
 To run tests, first you need to edit the DATABASE_URL_TEST variable in the test_app.sh file to your test database url, then run:
 ```
 source test_app.sh
@@ -47,8 +51,7 @@ This will setup the test environment variables and run the tests.
 
 
 
-## The Endpoints
-
+### The Endpoints
 A third-party authentication service Auth0 is used to handle authentication needs in the application and Role-Based-Access-Control is implemented in the app, which means authentication headers which contain JWT tokens and the required permissions will be used to access the endpoints.
 
 There are three roles:
