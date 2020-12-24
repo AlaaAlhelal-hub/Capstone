@@ -53,15 +53,15 @@ A third-party authentication service Auth0 is used to handle authentication need
 
 There are three roles:
 
-### 1. Casting Assistant
+#### 1. Casting Assistant
     - Can view actors and movies
 
-### 2. Casting Director
+#### 2. Casting Director
     - Can view actors and movies
     - Add or delete an actor from the database
     - Modify actors or movies
 
-### 3. Executive Producer
+#### 3. Executive Producer
     - Can view actors and movies
     - Add or delete an actor from the database
     - Add or delete a movie from the database
