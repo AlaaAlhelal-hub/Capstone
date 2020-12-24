@@ -28,14 +28,10 @@ def create_app(test_config=None):
     @app.route('/')
     def index():
 
-        endpoint = '\r\nGET /actors' \
-            '\r\nGET /movies' \
-            '\r\nPOST /actors' \
-            '\r\nPOST /movies' \
-            '\r\nPATCH /actors/<id>' \
-            '\r\nPATCH /movies/<id>' \
-            '\r\nDELETE /movies/<id>' \
-            '\r\nDELETE /movies/<id>'
+        endpoint = '\nGET /actors \nGET /movies'\
+            '\nPOST /actors \nPOST /movies'\
+            '\nPATCH /actors/<id> \nPATCH /movies/<id>'\
+            '\nDELETE /movies/<id> \nDELETE /movies/<id>'
 
         return jsonify({
             'message': 'Welcome to Casting Agency Co.' + endpoint
