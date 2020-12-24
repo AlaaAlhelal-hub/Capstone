@@ -27,14 +27,8 @@ def create_app(test_config=None):
     # INDEX endpoint
     @app.route('/')
     def index():
-
-        endpoint = '\nGET /actors \nGET /movies'\
-            '\nPOST /actors \nPOST /movies'\
-            '\nPATCH /actors/<id> \nPATCH /movies/<id>'\
-            '\nDELETE /movies/<id> \nDELETE /movies/<id>'
-
         return jsonify({
-            'message': 'Welcome to Casting Agency Co.' + endpoint
+            'message': 'Welcome to Casting Agency Co.'
         }), 200
 
     # GET /actors
