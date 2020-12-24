@@ -64,7 +64,7 @@ POST '/movies' \
 PATCH '/actors/<id>' \
 PATCH '/movies/<id>' \
 DELETE '/movies/<id>' \
-DELETE '/movies/<id>' \
+DELETE '/movies/<id>'
 
 
 
