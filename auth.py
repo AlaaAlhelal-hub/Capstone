@@ -3,18 +3,21 @@ from flask import request, _request_ctx_stack
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
+import os
 
 # AUTH0 Configuration
-AUTH0_DOMAIN = 'alaa-fsnd.us.auth0.com'
+AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'CastingAgencyModels'
+API_AUDIENCE = os.environ['API_AUDIENCE']
 
 
-## AuthError Exception
+# AuthError Exception
 '''
 AuthError Exception
 A standardized way to communicate auth failure modes
 '''
+
+
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
@@ -29,7 +32,7 @@ def verify_decode_jwt(token):
     unverified_header = jwt.get_unverified_header(token)
 
     rsa_key = {}
-    #it should be an Auth0 token with key id (kid)
+    # it should be an Auth0 token with key id (kid)
     if 'kid' not in unverified_header:
         raise AuthError({
             'code': 'invalid_header',
@@ -46,11 +49,10 @@ def verify_decode_jwt(token):
                 'e': key['e']
             }
 
-
     if rsa_key:
         try:
             # USE THE KEY TO VALIDATE THE JWT
-            #decode the payload from the token
+            # decode the payload from the token
             payload = jwt.decode(
                 token,
                 rsa_key,
@@ -58,7 +60,7 @@ def verify_decode_jwt(token):
                 audience=API_AUDIENCE,
                 issuer='https://' + AUTH0_DOMAIN + '/'
             )
-            #return the decoded payload
+            # return the decoded payload
             return payload
 
         except jwt.ExpiredSignatureError:
@@ -70,7 +72,7 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthError({
                 'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
+                'description': 'Please, check the audience and issuer.'
             }, 401)
         except Exception:
             raise AuthError({
@@ -85,10 +87,10 @@ def verify_decode_jwt(token):
 
 def get_token_auth_header():
     if 'Authorization' not in request.headers:
-        #no header is present
+        # no header is present
         raise AuthError({
-        'error': 'header_missing',
-        'description': 'No Authorization header supplied'
+            'error': 'header_missing',
+            'description': 'No Authorization header supplied'
         }, 401)
 
     auth_header = request.headers['Authorization']
@@ -96,36 +98,34 @@ def get_token_auth_header():
 
     if len(header_part) != 2:
         raise AuthError({
-        'error': 'invalid__auth_header',
-        'description': 'Invalid token supplied.'
+            'error': 'invalid__auth_header',
+            'description': 'Invalid token supplied.'
         }, 401)
 
     elif header_part[0].lower() != 'bearer':
         raise AuthError({
-        'error': 'invalid__auth_header',
-        'description': 'Invalid token supplied. Bearer token expected'
+            'error': 'invalid__auth_header',
+            'description': 'Invalid token supplied. Bearer token expected'
         }, 401)
 
-    #return the token part of the header
+    # return the token part of the header
     return header_part[1]
 
 
-
 def check_permissions(permission, payload):
-    if 'permissions' not in payload :
+    if 'permissions' not in payload:
         raise AuthError({
-        'code': 'invalid_claims',
-        'description': 'Permissions not included in JWT.'
+            'code': 'invalid_claims',
+            'description': 'Permissions not included in JWT.'
         }, 400)
 
     if permission not in payload['permissions']:
         raise AuthError({
-        'code': 'unauthorized',
-        'description': 'Permission not found.'
+            'code': 'unauthorized',
+            'description': 'Permission not found.'
         }, 403)
 
     return True
-
 
 
 def requires_auth(permission=''):

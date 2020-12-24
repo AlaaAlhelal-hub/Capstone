@@ -2,6 +2,9 @@
 
 Casting Agency Models is an API designed to management system that is responsible for creating movies and managing and assigning actors to those movies. The API shows list of actors and movies and providing features for managing them.
 
+the app link
+https://castingagencymodels.herokuapp.com
+
 
 ## Getting Started
 
