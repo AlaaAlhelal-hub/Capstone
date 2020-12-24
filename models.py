@@ -5,12 +5,13 @@ from flask_migrate import Migrate
 import json
 from datetime import datetime
 
+
 database_path = None
 
-if os.environ['ENV'] == 'test':
-    database_path = os.environ['DATABASE_URL_TEST']
+if os.environ.get('ENV') == 'test':
+    database_path = os.environ.get('DATABASE_URL_TEST')
 else:
-    database_path = os.environ['DATABASE_URL']
+    database_path = os.environ.get('DATABASE_URL')
 
 db = SQLAlchemy()
 

@@ -3,7 +3,7 @@
 ## Introduction
 This is the capstone project for Udacity's FULL-STACK DEVELOPER NANODEGRE I've use all of the concepts and the skills that I gained from Nanodegree's courses.
 
-Casting Agency Models is an API designed to management system that is responsible for creating movies and managing and assigning actors to those movies. The API shows list of actors and movies and providing features for managing them.
+Nowadays, technology solutions are very important to make work and life easier. Casting Agency Models is an API designed to management system that is responsible for creating movies and managing and assigning actors to those movies. The API shows list of actors and movies and providing features for managing them.
 
 the app link
 https://castingagencymodels.herokuapp.com

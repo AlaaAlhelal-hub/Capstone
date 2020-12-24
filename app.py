@@ -43,7 +43,8 @@ def create_app(test_config=None):
                 'success': True,
                 'actors': all_actors_formatted
             })
-        except BaseException:
+        except BaseException as e:
+            print(e)
             abort(422)
 
     # GET /movies
