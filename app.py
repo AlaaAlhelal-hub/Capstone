@@ -28,14 +28,14 @@ def create_app(test_config=None):
     @app.route('/')
     def index():
 
-        endpoint = os.linesep+'GET /actors' \
-            os.linesep+'GET /movies' \
-            os.linesep+'POST /actors' \
-            os.linesep+'POST /movies' \
-            os.linesep+'PATCH /actors/<id>' \
-            os.linesep+'PATCH /movies/<id>' \
-            os.linesep+'DELETE /movies/<id>' \
-            os.linesep+'DELETE /movies/<id>'
+        endpoint = '\r\nGET /actors' \
+            '\r\nGET /movies' \
+            '\r\nPOST /actors' \
+            '\r\nPOST /movies' \
+            '\r\nPATCH /actors/<id>' \
+            '\r\nPATCH /movies/<id>' \
+            '\r\nDELETE /movies/<id>' \
+            '\r\nDELETE /movies/<id>'
 
         return jsonify({
             'message': 'Welcome to Casting Agency Co.' + endpoint
