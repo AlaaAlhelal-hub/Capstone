@@ -51,7 +51,22 @@ This will setup the test environment variables and run the tests.
 
 A third-party authentication service Auth0 is used to handle authentication needs in the application and Role-Based-Access-Control is implemented in the app, which means authentication headers which contain JWT tokens and the required permissions will be used to access the endpoints.
 
-For review purposes, the JWT tokens in the test_app.py can be used for accessing the endpoints. (NOTE: These tokens will expire in 24 hours.)
+There are three roles:
+
+### 1. Casting Assistant
+    - Can view actors and movies
+
+### 2. Casting Director
+    - Can view actors and movies
+    - Add or delete an actor from the database
+    - Modify actors or movies
+
+### 3. Executive Producer
+    - Can view actors and movies
+    - Add or delete an actor from the database
+    - Add or delete a movie from the database
+    - Modify actors or movies
+
 
 ### API Reference
 
